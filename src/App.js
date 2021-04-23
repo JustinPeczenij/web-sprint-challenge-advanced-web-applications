@@ -1,18 +1,26 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import Login from "./components/Login";
+import BubblePage from './components/BubblePage';
+import PrivateRoute from './components/PrivateRoute';
 import "./styles.scss";
 
 function App() {
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('token')
+    return <Redirect to='/' />
+  }
+
   return (
     <Router>
       <div className="App">
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href="#">logout</a>
+          <a data-testid="logoutButton" onClick={handleLogout}>logout</a>
         </header> 
-
+        <PrivateRoute path='/bubbles-page' component={BubblePage} />
         <Route exact path="/" component={Login} />
       </div>
     </Router>
