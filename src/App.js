@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import Login from "./components/Login";
@@ -18,7 +18,7 @@ function App() {
       <div className="App">
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" onClick={handleLogout}>logout</a>
+          <a data-testid="logoutButton" href='/' onClick={handleLogout}>logout</a>
         </header> 
         <PrivateRoute path='/bubbles-page' component={BubblePage} />
         <Route exact path="/" component={Login} />

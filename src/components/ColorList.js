@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 import Color from './Color';
 import EditMenu from './EditMenu';
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
-import { Redirect } from "react-router";
 
 const initialColor = {
   color: "",
@@ -47,7 +45,7 @@ const ColorList = ({ colors, updateColors }) => {
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
-        {colors.map(color => <Color key={color.id} editing={editing} color={color} editColor={editColor} deleteColor={deleteColor}/>)}
+        {colors.map(color => <Color data-testid='color-list-render' key={color.id} editing={editing} color={color} editColor={editColor} deleteColor={deleteColor}/>)}
       </ul>
       
       { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing}/> }

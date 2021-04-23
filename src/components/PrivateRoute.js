@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         if(window.localStorage.getItem('token')) {
             return <Component />
         } else {
-            return <Redirect to='/login'/>
+            return <Redirect to='/'/>
         }
     }} />
 }
