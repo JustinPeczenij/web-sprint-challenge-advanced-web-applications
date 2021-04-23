@@ -3,6 +3,8 @@ import axios from "axios";
 
 import Color from './Color';
 import EditMenu from './EditMenu';
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
+import { Redirect } from "react-router";
 
 const initialColor = {
   color: "",
@@ -20,10 +22,25 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-
-  };
+    axiosWithAuth().put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        console.log(res.data)
+        updateColors([
+          ...colors.filter(color => color.id !== res.data.id), res.data
+        ])
+      })
+      .catch(err => console.log(err))
+    };
 
   const deleteColor = color => {
+    axiosWithAuth().delete(`/api/colors/${color.id}`)
+      .then(res => {
+        console.log(res)
+        updateColors([
+          ...colors.filter(color => JSON.stringify(color.id) !== res.data)
+        ])
+      })
+      .catch(err => console.log(err))
   };
 
   return (
@@ -34,7 +51,7 @@ const ColorList = ({ colors, updateColors }) => {
       </ul>
       
       { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing}/> }
-
+    
     </div>
   );
 };
